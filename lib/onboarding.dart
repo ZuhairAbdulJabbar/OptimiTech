@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:optimitech/pager_model.dart';
+import 'package:page_view_indicator/page_view_indicator.dart';
 
 class OnBoarding extends StatefulWidget {
   @override
@@ -28,7 +29,7 @@ class _OnBoardingState extends State<OnBoarding> {
       Icons.face,
     ));
   }
-
+  ValueNotifier<int> _pageIndexNotifier = ValueNotifier(0);
   @override
   Widget build(BuildContext context) {
     _addPages();
@@ -95,6 +96,16 @@ class _OnBoardingState extends State<OnBoarding> {
               );
             },
             itemCount: pages.length,
+            onPageChanged: (index){
+              _pageIndexNotifier.value = index;
+            },
+          ),
+        ),
+        Transform.translate(
+        offset: Offset(0, 175),
+          child: Align(
+            alignment: Alignment.center,
+            child: _dispalyPageIndicators(pages.length),
           ),
         ),
         Align(
@@ -124,6 +135,29 @@ class _OnBoardingState extends State<OnBoarding> {
           ),
         ),
       ],
+    );
+  }
+
+
+
+  Widget _dispalyPageIndicators(int length){
+    return PageViewIndicator(
+      pageIndexNotifier: _pageIndexNotifier,
+      length: length,
+      normalBuilder: (animationController, index) => Circle(
+        size: 8.0,
+        color: Colors.blueAccent,
+      ),
+      highlightedBuilder: (animationController, index) => ScaleTransition(
+        scale: CurvedAnimation(
+          parent: animationController,
+          curve: Curves.ease,
+        ),
+        child: Circle(
+          size: 12.0,
+          color: Colors.white,
+        ),
+      ),
     );
   }
 }
