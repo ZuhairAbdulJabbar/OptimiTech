@@ -3,7 +3,8 @@
 OptimiTech App _ developing started @ 20&#x2F;5&#x2F;2019
 
 packages used :
-https://pub.dev/packages/page_view_indicator
+- https://pub.dev/packages/page_view_indicator
+- https://pub.dev/packages/shared_preferences
 
 ## Getting Started
 
